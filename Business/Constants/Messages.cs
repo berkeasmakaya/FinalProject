@@ -1,4 +1,5 @@
-﻿using Entities.Concrete;
+﻿using Core.Entities.Concrete;
+using Entities.Concrete;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using System;
 using System.Collections.Generic;
@@ -19,5 +20,12 @@ namespace Business.Constants
 		public static string ProductUpdated = "Product Updated!";
 		public static string ProductNameAlreadyExists = "Product Name Already Exists!";
 		public static string CategoryLimitExceded = "Category Limit Exceded!";
+		public static string? AuthorizationDenied = "Authorization Denied!";
+		internal static string UserRegistered;
+		internal static User UserNotFound;
+		internal static User PasswordError;
+		internal static string SuccessfulLogin;
+		internal static string UserAlreadyExists;
+		internal static string AccessTokenCreated;
 	}
 }
