@@ -2,6 +2,7 @@
 using Business.BusinessAspect.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Business;
@@ -31,6 +32,7 @@ namespace Business.Concrete
 
 		[SecuredOperation("admin")]
 		[ValidationAspect(typeof(ProductValidator))]
+		[CacheRemoveAspect("IProductService.Get")]
 		public IResult Add(Product product)
 		{
 			IResult result = BusinessRules.Run(CheckIfProductCountOfCategoryCorrect(product.CategoryId), 
@@ -46,6 +48,7 @@ namespace Business.Concrete
             
 		}
 
+		[CacheAspect]
 		public IDataResult<List<Product>> GetAll()
 		{
             // Business Codes
@@ -65,7 +68,7 @@ namespace Business.Concrete
 		{
 			return new SuccessDataResult<List<Product>>(_productDal.GetAll(p=>p.UnitPrice>=min && p.UnitPrice<= max),Messages.ProductsListed);
 		}
-
+		[CacheAspect]
 		public IDataResult<Product> GetProductById(int productId)
 		{
 			return new SuccessDataResult<Product>(_productDal.Get(p=>p.ProductId == productId), Messages.ProductsListed);
